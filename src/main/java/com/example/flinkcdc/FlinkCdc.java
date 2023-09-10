@@ -22,10 +22,7 @@ public class FlinkCdc {
     }
 
     public static void start() throws Exception {
-        System.setProperty("logger.flink.level","INFO");
-
-
-        //https://github.com/ververica/flink-cdc-connectors/blob/master/docs/content/connectors/mysql-cdc.md
+        // https://github.com/ververica/flink-cdc-connectors/blob/master/docs/content/connectors/mysql-cdc.md
         MySqlSource<String> mySqlSource = MySqlSource.<String>builder()
                 .startupOptions(StartupOptions.latest())
                 .hostname("127.0.0.1")
