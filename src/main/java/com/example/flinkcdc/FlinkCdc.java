@@ -1,5 +1,6 @@
 package com.example.flinkcdc;
 
+import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.configuration.RestOptions;
 import org.apache.flink.streaming.api.datastream.DataStreamSink;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.apache.flink.configuration.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.util.Properties;
 
 @Component
 public class FlinkCdc {
@@ -22,7 +24,10 @@ public class FlinkCdc {
     public static void start() throws Exception {
         System.setProperty("logger.flink.level","INFO");
 
+
+        //https://github.com/ververica/flink-cdc-connectors/blob/master/docs/content/connectors/mysql-cdc.md
         MySqlSource<String> mySqlSource = MySqlSource.<String>builder()
+                .startupOptions(StartupOptions.latest())
                 .hostname("127.0.0.1")
                 .port(3307)
                 .databaseList("olnpmt2") // set captured database
